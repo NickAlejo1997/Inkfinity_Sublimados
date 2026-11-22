@@ -1,0 +1,12 @@
+<%@ page pageEncoding="UTF-8" %>
+<div class="flex flex-wrap items-center gap-2 py-2 text-sm">
+    <label for="idioma" class="font-semibold text-slate-700" data-i18n="idioma.etiqueta">${msg['idioma.etiqueta']}</label>
+    <select id="idioma" class="rounded-lg border border-slate-300 bg-white px-2 py-2 text-slate-900"
+            data-url="${pageContext.request.contextPath}/idiomas" data-ruta="${pageContext.request.contextPath}/">
+        <option lang="es" value="es" ${i18n.idioma == 'es' ? 'selected' : ''}>Español</option>
+        <option lang="en" value="en" ${i18n.idioma == 'en' ? 'selected' : ''}>English</option>
+        <option lang="ja" value="ja" ${i18n.idioma == 'ja' ? 'selected' : ''}>日本語</option>
+        <option lang="fr" value="fr" ${i18n.idioma == 'fr' ? 'selected' : ''}>Français</option>
+    </select>
+    <span id="errorIdioma" role="alert" hidden data-i18n="idioma.error">${msg['idioma.error']}</span>
+</div>

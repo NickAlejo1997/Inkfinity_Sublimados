@@ -1,0 +1,182 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/includes/mensajes.jspf" %>
+<!DOCTYPE html>
+<html lang="${i18n.idioma}" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta data-i18n-content="inicio.descripcion" content="${msg['inicio.descripcion']}" name="description">
+    <title data-i18n="inicio.titulo">${msg['inicio.titulo']}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="${pageContext.request.contextPath}/assets/idioma.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
+<header class="border-b border-slate-200 bg-white/90 sticky top-0 z-50">
+    <nav class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-3.5 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-6 md:gap-y-4 md:px-6 md:py-4 lg:px-8" data-i18n-aria-label="nav.principal" aria-label="${msg['nav.principal']}">
+        <a class="inline-flex w-fit max-w-full min-w-0 items-center gap-3 md:shrink-0" href="${pageContext.request.contextPath}/">
+            <img alt="Inkfinity Sublimados"
+                 class="h-11 w-11 shrink-0 rounded-full border border-slate-200 object-cover md:h-12 md:w-12 lg:h-14 lg:w-14"
+                 src="${pageContext.request.contextPath}/assets/logo-inkfinity.png">
+            <span class="min-w-0 text-sm font-black leading-snug tracking-tight md:text-base lg:text-lg"><span class="block md:inline">INKFINITY</span> <span class="block md:inline">SUBLIMADOS</span></span>
+        </a>
+        <%@ include file="/WEB-INF/includes/idioma.jspf" %>
+        <div class="flex min-w-0 flex-wrap items-center gap-2 border-t border-slate-100 pt-3 md:flex-1 md:justify-end md:gap-3 md:border-0 md:pt-0">
+            <a class="hidden min-h-11 items-center justify-center whitespace-nowrap px-3 text-sm font-medium text-slate-600 hover:text-slate-950 lg:inline-flex" href="#productos" data-i18n="nav.productos">${msg['nav.productos']}</a>
+            <a class="hidden min-h-11 items-center justify-center whitespace-nowrap px-3 text-sm font-medium text-slate-600 hover:text-slate-950 lg:inline-flex"
+               href="#proceso" data-i18n="nav.proceso">${msg['nav.proceso']}</a>
+            <c:choose>
+                <c:when test="${not empty sessionScope.clienteSesion}">
+                        <span class="hidden min-w-0 max-w-40 break-words text-sm font-semibold leading-6 text-slate-600 lg:block"><span data-i18n="saludo">${msg['saludo']}</span>
+                            <c:out
+                                    value="${sessionScope.clienteSesion.nombres}"/>
+                        </span>
+                    <a class="inline-flex min-h-11 flex-auto items-center justify-center whitespace-nowrap rounded-full border border-cyan-100 bg-cyan-50 px-3.5 py-2.5 text-sm font-bold leading-tight text-cyan-700 transition-colors hover:bg-cyan-100 md:flex-none"
+                       href="${pageContext.request.contextPath}/mis-pedidos" data-i18n="nav.pedidos">${msg['nav.pedidos']}</a>
+                    <form action="${pageContext.request.contextPath}/cerrar-sesion" method="post" class="m-0 flex min-w-0 flex-auto md:flex-none">
+                        <button type="submit" class="inline-flex min-h-11 flex-1 cursor-pointer items-center justify-center whitespace-nowrap rounded-full border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-bold leading-tight text-slate-600 transition-colors hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700" data-i18n="nav.salir">${msg['nav.salir']}
+                        </button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <a class="inline-flex min-h-11 flex-auto items-center justify-center whitespace-nowrap rounded-full border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-bold leading-tight text-slate-800 transition-colors hover:bg-slate-100 md:flex-none"
+                       href="${pageContext.request.contextPath}/acceso" data-i18n="accion.iniciar">
+                        ${msg['accion.iniciar']}
+                    </a>
+                </c:otherwise>
+            </c:choose>
+            <a class="inline-flex min-h-11 flex-auto items-center justify-center whitespace-nowrap rounded-full bg-slate-950 px-3.5 py-2.5 text-sm font-bold leading-tight text-white transition-colors hover:bg-cyan-600 md:flex-none"
+               href="${pageContext.request.contextPath}/pedido" data-i18n="nav.cotizar">${msg['nav.cotizar']}</a>
+        </div>
+    </nav>
+</header>
+<div class="overflow-hidden">
+
+    <main>
+        <section
+                class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_.95fr] lg:gap-14 lg:px-8 lg:py-24">
+            <div>
+                <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-fuchsia-200 bg-fuchsia-50 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-fuchsia-700">
+                    <span class="h-2 w-2 rounded-full bg-fuchsia-500"></span> <span data-i18n="inicio.lema">${msg['inicio.lema']}</span>
+                </div>
+                <h1 class="max-w-3xl text-4xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+                    <span data-i18n="inicio.hero">${msg['inicio.hero']}</span>
+                    <span class="bg-gradient-to-r from-fuchsia-500 to-cyan-500 bg-clip-text text-transparent" data-i18n="inicio.heroFinal">${msg['inicio.heroFinal']}</span>
+                </h1>
+                <p class="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8" data-i18n="inicio.intro">
+                    ${msg['inicio.intro']}
+                </p>
+                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <a class="rounded-full bg-gradient-to-r from-fuchsia-600 to-pink-500 px-7 py-4 text-center font-extrabold text-white shadow-lg transition hover:-translate-y-0.5"
+                       href="${pageContext.request.contextPath}/pedido" data-i18n="inicio.crear">
+                        ${msg['inicio.crear']}
+                    </a>
+                    <a class="rounded-full border border-slate-300 bg-white px-7 py-4 text-center font-bold text-slate-800 hover:bg-slate-100"
+                       href="#productos" data-i18n="inicio.tarifas">
+                        ${msg['inicio.tarifas']}
+                    </a>
+                </div>
+                <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
+                    <span data-i18n="inicio.inmediata">${msg['inicio.inmediata']}</span>
+                    <span data-i18n="inicio.opciones">${msg['inicio.opciones']}</span>
+                </div>
+            </div>
+            <div class="mx-auto w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-300/60 sm:p-6">
+                <div class="grid min-h-64 place-items-center rounded-2xl bg-gradient-to-br from-fuchsia-500 via-purple-500 to-cyan-400 p-6 sm:min-h-80">
+                    <img data-i18n-alt="marca.logo" alt="${msg['marca.logo']}"
+                         class="h-44 w-44 rounded-full border-4 border-white object-cover shadow-2xl sm:h-56 sm:w-56"
+                         src="${pageContext.request.contextPath}/assets/logo-inkfinity.png">
+                </div>
+                <div class="mt-4 grid grid-cols-2 gap-2 text-center sm:gap-3">
+                    <div class="rounded-xl bg-slate-100 p-3">
+                        <p class="text-lg font-black">24/1</p>
+                        <p class="text-xs text-slate-500" data-i18n="inicio.tejidoAlterno">${msg['inicio.tejidoAlterno']}</p>
+                    </div>
+                    <div class="rounded-xl bg-slate-100 p-3">
+                        <p class="text-lg font-black">11 oz</p>
+                        <p class="text-xs text-slate-500" data-i18n="inicio.onzasAlternas">${msg['inicio.onzasAlternas']}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="border-y border-slate-200 bg-white py-14 sm:pt-24" id="productos">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <p class="text-sm font-black uppercase tracking-[.3em] text-fuchsia-600" data-i18n="inicio.catalogo">${msg['inicio.catalogo']}</p>
+                <h2 class="mt-3 max-w-3xl text-3xl font-black tracking-tight sm:text-4xl" data-i18n="inicio.elegir">
+                    ${msg['inicio.elegir']}
+                </h2>
+                <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:mt-12">
+                    <article class="rounded-3xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
+                        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-fuchsia-100 text-3xl">👕</div>
+                        <h3 class="mt-5 text-2xl font-black" data-i18n="inicio.polos">${msg['inicio.polos']}</h3>
+                        <p class="mt-3 leading-7 text-slate-600" data-i18n="inicio.polosDetalle">${msg['inicio.polosDetalle']}</p>
+                        <a class="mt-5 inline-flex font-bold text-fuchsia-700 hover:text-fuchsia-900"
+                           href="${pageContext.request.contextPath}/pedido" data-i18n="inicio.verTallas">
+                            ${msg['inicio.verTallas']}
+                        </a>
+                    </article>
+                    <article class="rounded-3xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
+                        <div class="grid h-14 w-14 place-items-center rounded-2xl bg-cyan-100 text-3xl">☕</div>
+                        <h3 class="mt-5 text-2xl font-black" data-i18n="inicio.tazas">${msg['inicio.tazas']}</h3>
+                        <p class="mt-3 leading-7 text-slate-600" data-i18n="inicio.tazasDetalle">
+                            ${msg['inicio.tazasDetalle']}
+                        </p>
+                        <a class="mt-5 inline-flex font-bold text-cyan-700 hover:text-cyan-900"
+                           href="${pageContext.request.contextPath}/pedido" data-i18n="inicio.verTazas">
+                            ${msg['inicio.verTazas']}
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section
+                class="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-12 lg:px-8"
+                id="proceso">
+            <div>
+                <p class="text-sm font-black uppercase tracking-[.3em] text-cyan-700" data-i18n="inicio.simple">${msg['inicio.simple']}</p>
+                <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl" data-i18n="inicio.pasos">${msg['inicio.pasos']}</h2>
+                <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600" data-i18n="inicio.pasosDetalle">${msg['inicio.pasosDetalle']}</p>
+            </div>
+            <ol class="space-y-4">
+                <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><span
+                        class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-fuchsia-600 font-black text-white">1</span>
+                    <div><h3 class="font-bold" data-i18n="inicio.pasoProducto">${msg['inicio.pasoProducto']}</h3>
+                        <p class="mt-1 text-sm text-slate-500" data-i18n="inicio.pasoProductoDetalle">${msg['inicio.pasoProductoDetalle']}</p></div>
+                </li>
+                <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><span
+                        class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-purple-600 font-black text-white">2</span>
+                    <div><h3 class="font-bold" data-i18n="inicio.pasoOpciones">${msg['inicio.pasoOpciones']}</h3>
+                        <p class="mt-1 text-sm text-slate-500" data-i18n="inicio.pasoOpcionesDetalle">${msg['inicio.pasoOpcionesDetalle']}</p></div>
+                </li>
+                <li class="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><span
+                        class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cyan-600 font-black text-white">3</span>
+                    <div><h3 class="font-bold" data-i18n="inicio.pasoRecibo">${msg['inicio.pasoRecibo']}</h3>
+                        <p class="mt-1 text-sm text-slate-500" data-i18n="inicio.pasoReciboDetalle">${msg['inicio.pasoReciboDetalle']}</p></div>
+                </li>
+            </ol>
+        </section>
+        <section class="mx-auto max-w-7xl px-4 pb-14 sm:px-6 sm:pb-20 lg:px-8">
+            <div class="rounded-3xl bg-gradient-to-r from-fuchsia-600 to-cyan-600 p-7 text-center shadow-xl sm:p-12">
+                <h2 class="text-3xl font-black tracking-tight text-white sm:text-4xl" data-i18n="inicio.llamada">
+                    ${msg['inicio.llamada']}
+                </h2>
+                <p class="mx-auto mt-4 max-w-2xl text-white/85" data-i18n="inicio.llamadaDetalle">
+                    ${msg['inicio.llamadaDetalle']}
+                </p>
+                <a class="mt-7 inline-flex rounded-full bg-slate-950 px-8 py-4 font-extrabold text-white transition hover:scale-105"
+                   href="${pageContext.request.contextPath}/pedido" data-i18n="inicio.empezar">
+                    ${msg['inicio.empezar']}
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer class="border-t border-slate-200">
+        <div class="mx-auto max-w-7xl px-4 py-7 text-center text-sm text-slate-500 sm:px-6 lg:px-8">
+            © 2026 Inkfinity Sublimados.
+        </div>
+    </footer>
+</div>
+</body>
+</html>

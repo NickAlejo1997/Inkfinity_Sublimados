@@ -1,0 +1,16 @@
+<%@ page import="com.utp.i18n.Mensajes, jakarta.servlet.http.Cookie" %>
+<%@ taglib prefix="i" tagdir="/WEB-INF/tags" %>
+<%
+    String preferencia = "es";
+    if (request.getCookies() != null) {
+        for (Cookie cookieIdioma : request.getCookies()) {
+            if ("inkfinityIdioma".equals(cookieIdioma.getName())) {
+                preferencia = cookieIdioma.getValue();
+                break;
+            }
+        }
+    }
+    Mensajes mensajesVista = new Mensajes(preferencia);
+    pageContext.setAttribute("i18n", mensajesVista);
+    pageContext.setAttribute("msg", mensajesVista.getTextos());
+%>

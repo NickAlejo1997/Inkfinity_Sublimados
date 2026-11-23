@@ -23,11 +23,11 @@ public class MisPedidosServlet extends HttpServlet {
         }
         try {
             request.setAttribute("pedidos", pedidoFacade.obtenerHistorial(cliente.getId()));
-            request.getRequestDispatcher("/mis-pedidos.jsp").forward(request, response);
+            request.getRequestDispatcher("/mis-pedidos.xhtml").forward(request, response);
         } catch (Exception ex) {
             getServletContext().log("No se pudo cargar el historial de pedidos", ex);
             request.setAttribute("error", "error.historial");
-            request.getRequestDispatcher("/mis-pedidos.jsp").forward(request, response);
+            request.getRequestDispatcher("/mis-pedidos.xhtml").forward(request, response);
         }
     }
 }

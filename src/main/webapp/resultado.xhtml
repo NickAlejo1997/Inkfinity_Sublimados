@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/templates/principal.xhtml">
+    <ui:param name="pageBodyClass" value="min-h-screen bg-slate-50 text-slate-900 antialiased" />
+    <ui:param name="i18n" value="#{mensajesBean.mensajes}" />
+    <ui:define name="title">#{msg['recibo.titulo']}</ui:define>
+    <ui:define name="metadata"><meta content="width=device-width, initial-scale=1.0" name="viewport" /></ui:define>
+    <ui:define name="content">
+<header class="border-b border-slate-200 bg-white/90">
+    <nav class="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 py-3.5 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-6 md:gap-y-4 md:px-6 md:py-4" data-i18n-aria-label="nav.principal" aria-label="#{msg['nav.principal']}">
+        <a class="inline-flex w-fit max-w-full min-w-0 items-center gap-3 md:shrink-0" href="#{facesContext.externalContext.requestContextPath}/">
+            <img alt="Inkfinity Sublimados" class="h-11 w-11 shrink-0 rounded-full border border-slate-200 object-cover md:h-12 md:w-12 lg:h-14 lg:w-14"
+                 src="#{facesContext.externalContext.requestContextPath}/assets/logo-inkfinity.png" />
+            <span class="min-w-0 text-sm font-black leading-snug tracking-tight md:text-base lg:text-lg"><span class="block md:inline">INKFINITY</span> <span class="block md:inline">SUBLIMADOS</span></span>
+        </a>
+        <ui:include src="/WEB-INF/includes/idioma.xhtml" />
+        <div class="flex min-w-0 flex-wrap items-center gap-2 border-t border-slate-100 pt-3 md:flex-1 md:justify-end md:gap-3 md:border-0 md:pt-0">
+            <c:choose>
+                <c:when test="#{not empty sessionScope.clienteSesion}">
+                    <a class="inline-flex min-h-11 flex-auto items-center justify-center whitespace-nowrap rounded-full border border-cyan-100 bg-cyan-50 px-3.5 py-2.5 text-sm font-bold leading-tight text-cyan-700 transition-colors hover:bg-cyan-100 md:flex-none" href="#{facesContext.externalContext.requestContextPath}/mis-pedidos" data-i18n="nav.pedidos">#{msg['nav.pedidos']}</a>
+                    <form action="#{facesContext.externalContext.requestContextPath}/cerrar-sesion" method="post" class="m-0 flex min-w-0 flex-auto md:flex-none">
+                        <button type="submit" class="inline-flex min-h-11 flex-1 cursor-pointer items-center justify-center whitespace-nowrap rounded-full border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-bold leading-tight text-slate-600 transition-colors hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700" data-i18n="nav.salir">#{msg['nav.salir']}</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <a class="inline-flex min-h-11 flex-auto items-center justify-center whitespace-nowrap rounded-full border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-bold leading-tight text-slate-800 transition-colors hover:bg-slate-100 md:flex-none" href="#{facesContext.externalContext.requestContextPath}/acceso" data-i18n="accion.iniciar">#{msg['accion.iniciar']}</a>
+                </c:otherwise>
+            </c:choose>
+            <a class="inline-flex min-h-11 flex-auto items-center justify-center whitespace-nowrap rounded-full border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-bold leading-tight text-slate-600 transition-colors hover:bg-slate-100 md:flex-none"
+               href="#{facesContext.externalContext.requestContextPath}/pedido" data-i18n="nav.nuevo">#{msg['nav.nuevo']}</a>
+        </div>
+    </nav>
+</header>
+<main class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-14">
+    <div class="mb-7 text-center">
+        <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-2xl text-emerald-700">✓</span>
+        <p class="mt-4 text-sm font-black uppercase tracking-[.25em] text-cyan-700" data-i18n="recibo.guardado">#{msg['recibo.guardado']}</p>
+        <h1 class="mt-2 text-3xl font-black tracking-tight sm:text-4xl" data-i18n="recibo.encabezado">#{msg['recibo.encabezado']}</h1>
+        <p class="mt-3 text-slate-600"><span data-i18n="campo.folio">#{msg['campo.folio']}</span>
+            <span class="font-bold">##{cotizacion.id}
+            </span> <span data-i18n="recibo.cliente">#{msg['recibo.cliente']}</span>
+            <span class="font-bold text-slate-950">#{cotizacion.cliente}</span>
+        </p>
+        <p class="mt-2 text-sm text-slate-600"><span data-i18n="recibo.celular">#{msg['recibo.celular']}</span>
+            <span class="font-bold">#{cotizacion.celular}</span>
+        </p>
+    </div>
+
+    <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-300/40">
+        <div class="border-b border-slate-200 bg-gradient-to-r from-fuchsia-100 to-cyan-50 p-5 sm:p-7">
+            <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                <div>
+                    <p class="text-sm text-slate-500" data-i18n="campo.producto">#{msg['campo.producto']}</p>
+                    <h2 class="mt-1 text-2xl font-black">
+                        <c:choose>
+                            <c:when test="#{not empty cotizacion.productoVista}"><h:outputText value="#{mensajesBean.mostrar(cotizacion.productoVista)}" /></c:when>
+                            <c:otherwise>#{cotizacion.producto}</c:otherwise>
+                        </c:choose>
+                    </h2>
+                    <p class="mt-1 text-sm text-slate-600">
+                        <c:choose>
+                            <c:when test="#{not empty cotizacion.detalleVista}"><h:outputText value="#{mensajesBean.mostrar(cotizacion.detalleVista)}" /></c:when>
+                            <c:otherwise>#{cotizacion.detalle}</c:otherwise>
+                        </c:choose>
+                    </p>
+                </div>
+                <div class="w-fit rounded-2xl bg-white px-5 py-3 text-center shadow-sm">
+                    <p class="text-3xl font-black">
+                        #{cotizacion.cantidad}
+                    </p>
+                    <p class="text-xs uppercase tracking-wider text-slate-500" data-i18n="campo.unidades">#{msg['campo.unidades']}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-4 p-5 sm:p-7">
+
+            <c:if test="#{cotizacion.adicional gt 0}">
+                <div class="flex justify-between gap-4 text-sm">
+                    <span class="text-slate-600">
+                        <c:choose>
+                            <c:when test="#{cotizacion.empaque != 'No aplica'}"><span data-i18n="recibo.cajas">#{msg['recibo.cajas']}</span></c:when>
+                            <c:otherwise><span data-i18n="recibo.diseno">#{msg['recibo.diseno']}</span></c:otherwise></c:choose></span>
+                    <span class="font-bold" data-money-pen="#{cotizacion.adicional}">#{cotizacion.adicional}</span>
+                </div>
+            </c:if>
+            <div class="flex justify-between border-t border-slate-200 pt-4 text-sm">
+                <span class="text-slate-600" data-i18n="recibo.subtotal">#{msg['recibo.subtotal']}</span>
+                <span class="font-bold" data-money-pen="#{cotizacion.subtotal}">#{cotizacion.subtotal}</span>
+            </div>
+            <c:if test="#{cotizacion.porcentajeDescuento gt 0}">
+                <div class="flex justify-between gap-4 text-sm text-emerald-700">
+                    <span><span data-i18n="recibo.descuento">#{msg['recibo.descuento']}</span>#{cotizacion.porcentajeDescuento}%)</span>
+                    <span class="font-bold">− <span data-money-pen="#{cotizacion.descuento}">#{cotizacion.descuento}</span></span>
+                </div>
+            </c:if>
+            <div class="flex justify-between gap-4 text-sm">
+                <span class="text-slate-600" data-i18n="recibo.sinIgv">#{msg['recibo.sinIgv']}</span>
+                <span class="font-bold" data-money-pen="#{cotizacion.baseImponible}">#{cotizacion.baseImponible}</span>
+            </div>
+            <div class="flex justify-between gap-4 text-sm">
+                <span class="text-slate-600"><span data-i18n="recibo.tasa">#{msg['recibo.tasa']}</span>#{cotizacion.tasaImpuesto}%)</span>
+                <span class="font-bold" data-money-pen="#{cotizacion.impuesto}">#{cotizacion.impuesto}</span>
+            </div>
+        </div>
+
+        <div class="mx-5 mb-5 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-pink-500 p-5 text-white sm:mx-7 sm:mb-7 sm:p-6">
+            <div class="flex items-end justify-between gap-4">
+                <div>
+                    <p class="text-sm font-semibold text-white/80" data-i18n="recibo.total">#{msg['recibo.total']}</p>
+                    <p class="mt-1 text-xs text-white/70" data-i18n="recibo.igv">#{msg['recibo.igv']}</p>
+                </div>
+                <p class="text-3xl font-black tracking-tight sm:text-4xl" data-money-pen="#{cotizacion.total}">#{cotizacion.total}</p>
+            </div>
+        </div>
+    </section>
+    <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <a class="rounded-xl bg-slate-900 px-6 py-4 text-center font-bold text-white hover:bg-slate-700"
+           href="#{facesContext.externalContext.requestContextPath}/pedido" data-i18n="recibo.nuevo">
+            #{msg['recibo.nuevo']}
+        </a>
+        <a class="rounded-xl border border-slate-300 bg-white px-6 py-4 text-center font-bold hover:bg-slate-100"
+           href="#{facesContext.externalContext.requestContextPath}/" data-i18n="accion.inicio">
+            #{msg['accion.inicio']}
+        </a>
+    </div>
+    <p class="mt-6 text-center text-xs leading-5 text-slate-500" data-i18n="recibo.nota">
+        #{msg['recibo.nota']}
+    </p>
+</main>
+    </ui:define>
+</ui:composition>

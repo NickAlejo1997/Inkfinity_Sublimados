@@ -1,6 +1,7 @@
 (() => {
     const selector = document.getElementById('idioma');
     const aviso = document.getElementById('errorIdioma');
+    selector.value = document.documentElement.lang;
     const catalogos = new Map();
     let mensajes;
 
@@ -47,6 +48,7 @@
             document.documentElement.lang = idioma;
             // Cookie de sesión independiente del inicio y cierre de sesión del cliente.
             document.cookie = 'inkfinityIdioma=' + idioma + '; Path=' + selector.dataset.ruta + '; SameSite=Lax';
+            document.dispatchEvent(new CustomEvent('inkfinity:languagechange', {detail: {language: idioma}}));
         } catch {
             selector.value = document.documentElement.lang;
             aviso.hidden = false;

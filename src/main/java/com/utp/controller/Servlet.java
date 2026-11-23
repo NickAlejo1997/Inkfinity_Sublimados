@@ -59,7 +59,7 @@ public class Servlet extends HttpServlet {
 
         // El pedido ya está guardado. Un fallo al renderizar el recibo no es un error de persistencia.
         request.setAttribute("cotizacion", cotizacion);
-        request.getRequestDispatcher("/resultado.jsp").forward(request, response);
+        request.getRequestDispatcher("/resultado.xhtml").forward(request, response);
     }
 
     private void mostrarFormulario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,7 +75,7 @@ public class Servlet extends HttpServlet {
             getServletContext().log("No se pudo cargar el catálogo", ex);
             request.setAttribute("error", "error.catalogoConexion");
         }
-        request.getRequestDispatcher("/pedido.jsp").forward(request, response);
+        request.getRequestDispatcher("/pedido.xhtml").forward(request, response);
     }
 
     private void conservarFormulario(HttpServletRequest request, PedidoDTO pedido) {

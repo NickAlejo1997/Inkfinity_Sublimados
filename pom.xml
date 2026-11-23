@@ -27,6 +27,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>2.0.0</version>
@@ -65,13 +70,6 @@
                         <contextPath>/Inkfinity-Sublimados</contextPath>
                     </webApp>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>apache-jsp</artifactId>
-                        <version>11.0.15</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

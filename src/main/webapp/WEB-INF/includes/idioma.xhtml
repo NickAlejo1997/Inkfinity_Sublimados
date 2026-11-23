@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <div class="flex flex-wrap items-center gap-2 py-2 text-sm">
+        <label for="idioma" class="font-semibold text-slate-700" data-i18n="idioma.etiqueta">#{msg['idioma.etiqueta']}</label>
+        <select id="idioma" class="rounded-lg border border-slate-300 bg-white px-2 py-2 text-slate-900"
+                data-url="#{facesContext.externalContext.requestContextPath}/idiomas"
+                data-ruta="#{facesContext.externalContext.requestContextPath}/">
+            <option lang="es" value="es">Español</option>
+            <option lang="en" value="en">English</option>
+            <option lang="ja" value="ja">日本語</option>
+            <option lang="fr" value="fr">Français</option>
+        </select>
+        <span id="errorIdioma" role="alert" hidden="hidden" data-i18n="idioma.error">#{msg['idioma.error']}</span>
+    </div>
+</ui:composition>

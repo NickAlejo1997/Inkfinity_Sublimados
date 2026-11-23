@@ -16,7 +16,7 @@ public class AccesoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/acceso.jsp").forward(request, response);
+        request.getRequestDispatcher("/acceso.xhtml").forward(request, response);
     }
 
     @Override
@@ -30,11 +30,11 @@ public class AccesoServlet extends HttpServlet {
         } catch (IllegalArgumentException ex) {
             request.setAttribute("error", ex.getMessage());
             request.setAttribute("formDni", request.getParameter("dni"));
-            request.getRequestDispatcher("/acceso.jsp").forward(request, response);
+            request.getRequestDispatcher("/acceso.xhtml").forward(request, response);
         } catch (Exception ex) {
             getServletContext().log("No se pudo iniciar sesión", ex);
             request.setAttribute("error", "error.baseAcceso");
-            request.getRequestDispatcher("/acceso.jsp").forward(request, response);
+            request.getRequestDispatcher("/acceso.xhtml").forward(request, response);
         }
     }
 }

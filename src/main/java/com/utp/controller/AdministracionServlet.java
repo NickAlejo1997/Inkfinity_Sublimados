@@ -95,6 +95,6 @@ public class AdministracionServlet extends HttpServlet {
                 req.getSession(false).removeAttribute("adminAviso");
             }
         }
-        req.getRequestDispatcher("/administracion.jsp").forward(req, resp);
+        req.getRequestDispatcher("/administracion.xhtml").forward(req, resp);
     }
 }

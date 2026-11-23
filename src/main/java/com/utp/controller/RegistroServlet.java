@@ -17,7 +17,7 @@ public class RegistroServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/registro.jsp").forward(request, response);
+        request.getRequestDispatcher("/registro.xhtml").forward(request, response);
     }
 
     @Override
@@ -41,11 +41,11 @@ public class RegistroServlet extends HttpServlet {
             request.setAttribute("formNombres", registro.getNombres());
             request.setAttribute("formApellidos", registro.getApellidos());
             request.setAttribute("formCelular", registro.getCelular());
-            request.getRequestDispatcher("/registro.jsp").forward(request, response);
+            request.getRequestDispatcher("/registro.xhtml").forward(request, response);
         } catch (Exception ex) {
             getServletContext().log("No se pudo registrar la cuenta", ex);
             request.setAttribute("error", "error.registro");
-            request.getRequestDispatcher("/registro.jsp").forward(request, response);
+            request.getRequestDispatcher("/registro.xhtml").forward(request, response);
         }
     }
 }
